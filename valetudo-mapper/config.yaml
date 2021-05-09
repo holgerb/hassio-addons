@@ -24,3 +24,27 @@ panel_title: Valetudo RE Floorplan
 panel_icon: mdi:floor-plan
 map:
   - ssl
+options:
+  mapSettings:
+    drawPath: true
+    drawCharger: true
+    drawRobot: true
+    drawCurrentlyCleanedZones: false
+    drawCurrentlyCleanedBlocks: false
+    drawForbiddenZones: true
+    drawVirtualWalls: true
+    scale: 4
+    gradientBackground: true
+    autoCrop: 20
+  mapColors: { }
+  mqtt:
+    robots:
+      - identifier: rockrobo
+        topicPrefix: valetudo
+        mapDataTopic: valetudo/rockrobo/map_data
+    autoconfPrefix: homeassistant
+    broker_url: mqtt://user:pass@foobar.example
+    caPath: ''
+    minMillisecondsBetweenMapUpdates: 10000
+    publishMapImage: true
+    publishMapData: false
