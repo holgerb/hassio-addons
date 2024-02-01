@@ -18,8 +18,7 @@ ingress_port: 80
 ingress_stream: true
 stage: experimental
 panel_icon: mdi:teddy-bear
-panel_titel: Teddy Cloud
-panel_admin: true
+panel_title: Teddy Cloud
 services:
   - mqtt:want
 options:
