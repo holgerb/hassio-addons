@@ -1,5 +1,5 @@
 name: "Teddy Cloud"
-description: "Run and administer a teddycloud instance on home assistant."
+description: "Run and an teddycloud instance on home assistant."
 version: "1.0.0"
 slug: "teddy_cloud"
 init: false
