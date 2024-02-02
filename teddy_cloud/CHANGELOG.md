@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opt-out MQTT auto configuration
 - Detailed documentation
 
+## [1.0.1] - 2024-02-02
+### Fixed
+-  /content-Endpoint cannot be resolved from Ingress
+
 ## [1.0.0] - 2024-02-01
 
 ### Initial release

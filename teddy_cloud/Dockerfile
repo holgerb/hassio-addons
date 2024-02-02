@@ -23,6 +23,7 @@ RUN cd /teddycloud/install/pre/data/www/
 RUN find -name "*.html" -exec sed -i 's/fetch(`\//fetch(`\.\//g' {} \;
 RUN find -name "*.html" -exec sed -i 's/fetch("\//fetch("\.\//g' {} \;
 RUN find -name "*.html" -exec sed -i "s/fetch('\//fetch('\.\//g" {} \;
+RUN find -name "*.html" -exec sed -i "s/\/content/\.\/content/g" {} \;
 
 
 # Use Alpine Linux as base image for the final image
