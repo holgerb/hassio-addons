@@ -9,7 +9,7 @@ bashio::log.info 'Preparing config directories... '
 mkdir -p /config/config
 mkdir -p /config/certs/server
 mkdir -p /config/certs/client
-mkdir -p /config/data/
+mkdir -p /config/data/content/default
 
 bashio::log.info 'Soft link config directories... '
 cd /teddycloud
