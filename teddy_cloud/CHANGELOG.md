@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opt-out MQTT auto configuration
 - Detailed documentation
 
+## [1.0.3] - 2024-02-04
+### Fixed
+- Default content dir missing
+
 ## [1.0.2] - 2024-02-04
 ### Fixed
 - TeddyCloud data not persisted correctly 
