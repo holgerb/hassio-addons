@@ -9,16 +9,16 @@ bashio::log.info 'Preparing config directories... '
 mkdir -p /config/config
 mkdir -p /config/certs/server
 mkdir -p /config/certs/client
-mkdir -p /config/data/content/default
+mkdir -p /config/content/default
 
 bashio::log.info 'Soft link config directories... '
 cd /teddycloud
 rm -rf config
 rm -rf certs
-rm -rf data
+rm -rf data/content
 ln -s /config/config config
 ln -s /config/certs certs
-ln -s /config/data data
+ln -s /config/content data/content
 
 if bashio::config.is_empty 'mqtt' && bashio::var.has_value "$(bashio::services 'mqtt')"; then
     if bashio::var.true "$(bashio::services 'mqtt' 'ssl')"; then
