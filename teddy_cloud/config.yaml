@@ -1,6 +1,6 @@
 name: "Teddy Cloud"
 description: "Run and an teddycloud instance on home assistant."
-version: "1.0.1"
+version: "1.0.2"
 slug: "teddy_cloud"
 init: false
 arch:
@@ -9,6 +9,7 @@ arch:
   - armv7
 ports:
   443/tcp: 443
+  80/tcp:
 ports_description:
   443/tcp: Cannot be changed as the toniebox expects the server to listen here.
 map:
