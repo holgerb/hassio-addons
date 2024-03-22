@@ -1,0 +1,35 @@
+name: "Teddy Cloud Edge"
+description: "Run and an teddycloud edge instance on home assistant."
+version: "1.0.0"
+slug: "teddy_cloud_edge"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armv7
+ports:
+  443/tcp: 443
+  80/tcp:
+ports_description:
+  443/tcp: Cannot be changed as the toniebox expects the server to listen here.
+map:
+  - addon_config:rw
+ingress: true
+ingress_port: 80
+ingress_entry: /web
+ingress_stream: true
+stage: experimental
+panel_icon: mdi:teddy-bear
+panel_title: Teddy Cloud
+services:
+  - mqtt:want
+options:
+  mqtt: { }
+schema:
+  mqtt:
+    server: str?
+    ca: str?
+    key: str?
+    cert: str?
+    user: str?
+    password: str?
