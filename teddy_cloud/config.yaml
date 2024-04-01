@@ -1,6 +1,6 @@
 name: "Teddy Cloud"
 description: "Run and an teddycloud instance on home assistant."
-version: "1.0.5"
+version: "1.1.0"
 slug: "teddy_cloud"
 init: false
 arch:
