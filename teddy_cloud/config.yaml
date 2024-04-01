@@ -32,3 +32,4 @@ schema:
     cert: str?
     user: str?
     password: str?
+image: "ghcr.io/holgerb/{arch}-teddy_cloud"
