@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opt-out MQTT auto configuration
 - Detailed documentation
 
+## [1.1.1] - 2024-04-10
+- Moved to Teddy Cloud tc_v0.4.4
+
 ## [1.1.0] - 2024-04-01
 - Moved to Teddy Cloud tc_v0.4.3
 
