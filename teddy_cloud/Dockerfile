@@ -6,7 +6,7 @@ FROM $BUILD_FROM as buildenv
 RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl
 
 # Set teddycloud version
-ENV TEDDY_CLOUD_VERSION=tc_v0.4.3
+ENV TEDDY_CLOUD_VERSION=tc_v0.4.4
 
 # Clone teddycloud
 RUN git clone --recurse-submodules  https://github.com/toniebox-reverse-engineering/teddycloud.git --branch=$TEDDY_CLOUD_VERSION
