@@ -15,7 +15,7 @@ RUN git clone --recurse-submodules  https://github.com/toniebox-reverse-engineer
 WORKDIR /teddycloud
 
 # Change relative web path to absolute path
-RUN cat \<\<\< $(jq '.homepage="."' teddycloud_web/package.json) > teddycloud_web/package.json
+RUN jq '.homepage="."' teddycloud_web/package.json > teddycloud_web/package.tmp && mv teddycloud_web/package.tmp teddycloud_web/package.json
 
 # No libsanitizie support in alpine and wrong definitions for PRIuTIME
 RUN make zip NO_WARN_FAIL=1 NO_SANITIZERS=1
