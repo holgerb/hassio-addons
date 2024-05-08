@@ -3,7 +3,8 @@ ARG BUILD_FROM
 FROM $BUILD_FROM as buildenv
 
 # Install necessary dependencies
-RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl jq
+
+RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl jq nodejs npm
 
 # Set teddycloud version
 ENV TEDDY_CLOUD_VERSION=develop
@@ -18,7 +19,7 @@ WORKDIR /teddycloud
 RUN jq '.homepage="."' teddycloud_web/package.json > teddycloud_web/package.tmp && mv teddycloud_web/package.tmp teddycloud_web/package.json
 
 # No libsanitizie support in alpine and wrong definitions for PRIuTIME
-RUN make zip NO_WARN_FAIL=1 NO_SANITIZERS=1
+RUN make web zip NO_WARN_FAIL=1 NO_SANITIZERS=1
 
 # Copy tonie infos
 RUN curl -f https://raw.githubusercontent.com/toniebox-reverse-engineering/tonies-json/release/tonies.json -o /teddycloud/install/pre/config/tonies.json || true
