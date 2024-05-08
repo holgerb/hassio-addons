@@ -3,15 +3,20 @@ ARG BUILD_FROM
 FROM $BUILD_FROM as buildenv
 
 # Install necessary dependencies
-RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl
+RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl jq
 
 # Set teddycloud version
 ENV TEDDY_CLOUD_VERSION=develop
 
 # Clone teddycloud
 RUN git clone --recurse-submodules  https://github.com/toniebox-reverse-engineering/teddycloud.git --branch=$TEDDY_CLOUD_VERSION
+
 # Workdir to the cloned teddycloud repo
 WORKDIR /teddycloud
+
+# Change relative web path to absolute path
+RUN cat \<\<\< $(jq '.homepage="."' teddycloud_web/package.json) > teddycloud_web/package.json
+
 # No libsanitizie support in alpine and wrong definitions for PRIuTIME
 RUN make zip NO_WARN_FAIL=1 NO_SANITIZERS=1
 
