@@ -3,7 +3,6 @@ ARG BUILD_FROM
 FROM $BUILD_FROM as buildenv
 
 # Install necessary dependencies
-
 RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl jq nodejs npm
 
 # Set teddycloud version
