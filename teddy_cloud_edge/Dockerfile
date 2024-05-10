@@ -16,7 +16,7 @@ WORKDIR /teddycloud
 
 # Change relative web path to absolute path
 RUN jq '.homepage="./web"' teddycloud_web/package.json > teddycloud_web/package.tmp && mv teddycloud_web/package.tmp teddycloud_web/package.json
-RUN sed -i 's/${process.env.REACT_APP_TEDDYCLOUD_WEB_BASE}/\.web/' teddycloud_web/src/i18n.ts
+RUN sed -i 's/${process.env.REACT_APP_TEDDYCLOUD_WEB_BASE}/\.\/web' teddycloud_web/src/i18n.ts
 RUN echo 'REACT_APP_TEDDYCLOUD_API_URL=./web' > teddycloud_web/.env.production
 #RUN echo 'REACT_APP_TEDDYCLOUD_WEB_BASE=./web' >> teddycloud_web/.env.production
 
