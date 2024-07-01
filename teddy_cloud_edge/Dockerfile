@@ -16,7 +16,7 @@ WORKDIR /teddycloud
 
 # Install custom teddycloud_web
 RUN rm -rf teddycloud_web
-RUN git clone https://github.com/holgerb/teddycloud_web.git
+RUN git clone https://github.com/holgerb/teddycloud_web.git --branch=feat/vite
 
 # Change relative web path to absolute path
 #RUN jq '.homepage="./web"' teddycloud_web/package.json > teddycloud_web/package.tmp && mv teddycloud_web/package.tmp teddycloud_web/package.json
