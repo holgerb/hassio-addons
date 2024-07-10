@@ -7,6 +7,7 @@ RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl jq nodejs npm
 
 # Set teddycloud version
 ENV TEDDY_CLOUD_VERSION=develop
+ENV TEDDY_WEB_VERSION="feat/vite"
 
 # Clone teddycloud
 RUN git clone --recurse-submodules  https://github.com/toniebox-reverse-engineering/teddycloud.git --branch=$TEDDY_CLOUD_VERSION
@@ -16,7 +17,7 @@ WORKDIR /teddycloud
 
 # Install custom teddycloud_web
 RUN rm -rf teddycloud_web
-RUN git clone https://github.com/holgerb/teddycloud_web.git --branch=feat/vite
+RUN git clone https://github.com/holgerb/teddycloud_web.git --branch=$TEDDY_WEB_VERSION
 
 # Change relative web path to absolute path
 #RUN jq '.homepage="./web"' teddycloud_web/package.json > teddycloud_web/package.tmp && mv teddycloud_web/package.tmp teddycloud_web/package.json
