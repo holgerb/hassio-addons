@@ -1,6 +1,6 @@
 name: "Teddy Cloud Edge"
 description: "Run and an teddycloud edge instance on home assistant."
-version: "1.0.11"
+version: "1.0.12"
 slug: "teddy_cloud_edge"
 init: false
 arch:
