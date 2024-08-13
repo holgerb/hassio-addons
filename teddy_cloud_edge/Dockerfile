@@ -7,7 +7,7 @@ RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl jq nodejs npm
 
 # Set teddycloud version
 ENV TEDDY_CLOUD_VERSION=develop
-ENV TEDDY_WEB_VERSION="feat/vite"
+ENV TEDDY_WEB_VERSION=develop
 
 # Clone teddycloud
 RUN git clone --recurse-submodules  https://github.com/toniebox-reverse-engineering/teddycloud.git --branch=$TEDDY_CLOUD_VERSION
