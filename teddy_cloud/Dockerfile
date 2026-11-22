@@ -1,6 +1,6 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base:3.23
 # Build
-FROM $BUILD_FROM as buildenv
+FROM $BUILD_FROM AS buildenv
 
 # Install necessary dependencies
 RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl
@@ -28,7 +28,7 @@ RUN find -name "*.html" -exec sed -i "s/\/api\/sse/\.\/api\/sse/g" {} \;
 
 
 # Use Alpine Linux as base image for the final image
-FROM $BUILD_FROM as runtime
+FROM $BUILD_FROM AS runtime
 EXPOSE 80 443
 
 # Install necessary runtime dependencies

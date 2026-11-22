@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opt-out MQTT auto configuration
 - Detailed documentation
 
+## [1.3.2] - 2026-11-22
+- Build with Docker BuildKit on native AMD64 and ARM64 runners.
+- Publish signed multi-platform images under `ghcr.io/holgerb/teddy_cloud`.
+
 ## [1.3.0] - 2024-10-21
 - Moved to Teddy Cloud tc_v0.6.1
 - 
