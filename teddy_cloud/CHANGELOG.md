@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opt-out MQTT auto configuration
 - Detailed documentation
 
+## [1.3.3] - 2026-11-23
+- Update Teddy Cloud from tc_v0.6.2 to tc_v0.6.5.
+- Remove the MQTT callback patch; this release includes the upstream fix.
+
 ## [1.3.2] - 2026-11-22
 - Backport the MQTT task callback signature fix for modern Alpine compilers.
 - Build with Docker BuildKit on native AMD64 and ARM64 runners.
