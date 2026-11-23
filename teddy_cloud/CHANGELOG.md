@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed documentation
 
 ## [1.3.2] - 2026-11-22
+- Backport the MQTT task callback signature fix for modern Alpine compilers.
 - Build with Docker BuildKit on native AMD64 and ARM64 runners.
 - Publish signed multi-platform images under `ghcr.io/holgerb/teddy_cloud`.
 
