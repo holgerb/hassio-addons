@@ -8,7 +8,6 @@ on:
       - "teddy_cloud_edge/**"
       - ".github/workflows/**"
   pull_request:
-    branches: [main]
     paths:
       - "teddy_cloud/**"
       - "teddy_cloud_edge/**"
