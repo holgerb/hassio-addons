@@ -1,0 +1,8 @@
+--- a/src/mqtt.c
++++ b/src/mqtt.c
+@@ -399,3 +399,4 @@
+-void mqtt_thread()
++void mqtt_thread(void *arg)
+ {
++    (void)arg;
+     uint32_t errors = 0;

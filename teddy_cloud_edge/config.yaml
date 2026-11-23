@@ -1,6 +1,6 @@
 name: "Teddy Cloud Edge"
 description: "Run and an teddycloud edge instance on home assistant."
-version: "1.0.14"
+version: "1.0.15"
 slug: "teddy_cloud_edge"
 init: false
 arch:
@@ -32,4 +32,4 @@ schema:
     cert: str?
     user: str?
     password: str?
-image: "ghcr.io/holgerb/{arch}-teddy_cloud_edge"
+image: "ghcr.io/holgerb/teddy_cloud_edge"

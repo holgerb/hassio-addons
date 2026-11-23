@@ -1,9 +1,9 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base:3.23
 # Build
-FROM $BUILD_FROM as buildenv
+FROM $BUILD_FROM AS buildenv
 
 # Install necessary dependencies
-RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl
+RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl patch
 
 # Set teddycloud version
 ENV TEDDY_CLOUD_VERSION=tc_v0.6.2
@@ -12,6 +12,9 @@ ENV TEDDY_CLOUD_VERSION=tc_v0.6.2
 RUN git clone --recurse-submodules  https://github.com/toniebox-reverse-engineering/teddycloud.git --branch=$TEDDY_CLOUD_VERSION
 # Workdir to the cloned teddycloud repo
 WORKDIR /teddycloud
+# Backport the upstream callback signature fix for modern Alpine compilers.
+COPY patches/ /tmp/teddycloud-patches/
+RUN patch -p1 < /tmp/teddycloud-patches/mqtt-task-signature.patch
 # No libsanitizie support in alpine and wrong definitions for PRIuTIME
 RUN make zip NO_WARN_FAIL=1 NO_SANITIZERS=1
 
@@ -28,7 +31,7 @@ RUN find -name "*.html" -exec sed -i "s/\/api\/sse/\.\/api\/sse/g" {} \;
 
 
 # Use Alpine Linux as base image for the final image
-FROM $BUILD_FROM as runtime
+FROM $BUILD_FROM AS runtime
 EXPOSE 80 443
 
 # Install necessary runtime dependencies

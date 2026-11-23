@@ -1,0 +1,91 @@
+name: Build add-on images
+
+on:
+  workflow_call:
+    inputs:
+      addon:
+        description: Add-on directory
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    name: Prepare ${{ inputs.addon }}
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      architectures: ${{ steps.info.outputs.architectures }}
+      version: ${{ steps.info.outputs.version }}
+      name: ${{ steps.info.outputs.name }}
+      description: ${{ steps.info.outputs.description }}
+      slug: ${{ steps.info.outputs.slug }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Read add-on metadata
+        id: info
+        uses: home-assistant/actions/helpers/info@07f46fd2e19967768b5fd3000f91f857452b767c
+        with:
+          path: ${{ inputs.addon }}
+      - name: Prepare native build matrix
+        id: matrix
+        uses: home-assistant/builder/actions/prepare-multi-arch-matrix@7412f0023ea9b6e58e8bb5059f1660f51376f49a # 2026.09.0
+        with:
+          architectures: ${{ steps.info.outputs.architectures }}
+          image-name: ${{ fromJSON(steps.info.outputs.slug) }}
+
+  build:
+    name: Build ${{ inputs.addon }} (${{ matrix.arch }})
+    needs: prepare
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Build and optionally publish image
+        uses: home-assistant/builder/actions/build-image@7412f0023ea9b6e58e8bb5059f1660f51376f49a # 2026.09.0
+        with:
+          arch: ${{ matrix.arch }}
+          context: ./${{ inputs.addon }}
+          image: ${{ matrix.image }}
+          image-tags: |
+            ${{ github.sha }}
+            ${{ fromJSON(needs.prepare.outputs.version) }}
+            latest
+          version: ${{ fromJSON(needs.prepare.outputs.version) }}
+          cache-gha-scope: ${{ inputs.addon }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          cosign: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+          labels: |
+            io.hass.type=addon
+            io.hass.name=${{ fromJSON(needs.prepare.outputs.name) }}
+            io.hass.description=${{ fromJSON(needs.prepare.outputs.description) }}
+            io.hass.url=https://github.com/${{ github.repository }}/tree/main/${{ inputs.addon }}
+
+  manifest:
+    name: Publish ${{ inputs.addon }} manifest
+    needs: [prepare, build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: write
+      id-token: write
+    steps:
+      - name: Publish and sign multi-architecture manifest
+        uses: home-assistant/builder/actions/publish-multi-arch-manifest@7412f0023ea9b6e58e8bb5059f1660f51376f49a # 2026.09.0
+        with:
+          architectures: ${{ needs.prepare.outputs.architectures }}
+          image-name: ${{ fromJSON(needs.prepare.outputs.slug) }}
+          image-tags: |
+            ${{ github.sha }}
+            ${{ fromJSON(needs.prepare.outputs.version) }}
+            latest
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}

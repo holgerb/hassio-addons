@@ -1,6 +1,6 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base:3.23
 # Build
-FROM $BUILD_FROM as buildenv
+FROM $BUILD_FROM AS buildenv
 
 # Install necessary dependencies
 RUN apk --no-cache add gcc protobuf-c-dev build-base git zip curl jq nodejs npm
@@ -32,7 +32,7 @@ RUN make web zip NO_WARN_FAIL=1 NO_SANITIZERS=1
 RUN curl -f https://raw.githubusercontent.com/toniebox-reverse-engineering/tonies-json/release/tonies.json -o /teddycloud/install/pre/config/tonies.json || true
 
 # Use Alpine Linux as base image for the final image
-FROM $BUILD_FROM as runtime
+FROM $BUILD_FROM AS runtime
 EXPOSE 80 443
 
 # Install necessary runtime dependencies
